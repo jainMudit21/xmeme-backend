@@ -12,7 +12,7 @@ const https = require("https")
 const path = require("path")
 const fs = require("fs")
 const swaggerApp = express()
-const swaggerPort = process.env.PORT
+const swaggerPort = process.env.PORT || 8000;
 
 
 

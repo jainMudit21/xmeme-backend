@@ -11,8 +11,8 @@ swaggerDocument = require('./swagger.json');
 const https = require("https")
 const path = require("path")
 const fs = require("fs")
-const swaggerApp = express()
-const swaggerPort = process.env.PORT || 8000;
+// const swaggerApp = express()
+// const swaggerPort = process.env.PORT || 8000;
 
 
 
@@ -33,14 +33,14 @@ mongoose
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
-swaggerApp.use(cors());
+// swaggerApp.use(cors());
 
 
 //Routes
-swaggerApp.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
-swaggerApp.listen(swaggerPort, () => {
-  console.log('Swagger up and running on '+swaggerPort)
-})
+app.use('/swagger-ui', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+// swaggerApp.listen(swaggerPort, () => {
+//   console.log('Swagger up and running on '+swaggerPort)
+// })
 app.use("", memeRoute);
 
 

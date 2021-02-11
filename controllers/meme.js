@@ -101,12 +101,18 @@ exports.updateMeme = (req, res) => {
         return res;
     }
 
+    if(req.body.url == undefined && req.body.caption == undefined) {
+        res.status(204).json({
+            message: "No change"
+        })
+    }
+
     meme.findByIdAndUpdate(
         {_id: req.profile._id},
         {$set: req.body},
         {new: true, useFindAndModify: false},
         (err, meme) => {
-            console.log(".then fn in findByIdAndUpdate is running")
+            // console.log(".then fn in findByIdAndUpdate is running")
             if(err) {
                 console.log("error found in updating the meme");
                 return res.status(400).json({
@@ -118,4 +124,18 @@ exports.updateMeme = (req, res) => {
             res.json();
         }
     )
+}
+
+
+exports.deleteMeme = (req, res) => {
+    meme.findByIdAndDelete({_id: req.profile._id}, (err, meme) => {
+        if(err) {
+            return res.status(400).json({
+                error:"Cannot delete from DB. Unknown Error",
+                message: err
+            })
+        }
+        res.status(200);
+        res.json();
+    })
 }

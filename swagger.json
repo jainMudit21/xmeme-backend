@@ -1,124 +1,37 @@
 {
-    "swagger": "2.0",
-    "info": {
-      "description": "A simple project created to learn basics of Web-dev and API Specifications.",
-      "version": "1.0.0",
-      "title": "Swagger X-Meme"
-    },
-    "host": "localhost:8000",
-    "tags": [
-      {
-        "name": "memes",
-        "description": "Everything about your Memes"
-      }
-    ],
-    "schemes": [
-      "http"
-    ],
-    "paths": {
-      "/memes": {
-        "get": {
-          "tags": [
-            "memes"
-          ],
-          "summary": "Get Latest 100 Memes",
-          "description": "Returns a JSON Array containing latest 100 memes",
-          "operationId": "addPet",
-          "produces": [
-            "application/json"
-          ],
-          "responses": {
-            "200": {
-              "description": "JSON Array containing memes",
-              "schema": {
-                "type": "array",
-                "items": {
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "caption": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    }
-                  }
-                }
-              }
-            }
-          }
-        },
-        "post": {
-          "tags": [
-            "memes"
-          ],
-          "summary": "Creates a Meme",
-          "description": "Adds a new meme to the list",
-          "produces": [
-            "application/json"
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "meme",
-              "in": "body",
-              "description": "Create a meme",
-              "schema": {
-                "$ref": "#/definitions/Meme"
-              }
-            }
-          ],
-          "responses": {
-            "201": {
-              "description": "Meme created successully",
-              "schema": {
-                "required": [
-                  "id"
-                ],
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  }
-                }
-              }
-            },
-            "400": {
-              "description": "Invalid Parameters, Make sure URL is valid"
-            },
-            "409": {
-              "description": "Meme already exists by same user and caption"
-            }
-          }
-        }
-      },
-      "/memes/{id}": {
-        "get": {
-          "tags": [
-            "memes"
-          ],
-          "summary": "Finds Meme by Id",
-          "produces": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "description": "Meme Id",
-              "type": "string"
-            }
-          ],
-          "responses": {
-            "200": {
-              "description": "A meme",
-              "schema": {
+  "swagger": "2.0",
+  "info": {
+    "description": "Post memes, View memes, Edit memes, Delete memes without any authorisation.",
+    "version": "1.0.0",
+    "title": "Swagger X-Meme"
+  },
+  "host": "frozen-stream-03438.herokuapp.com",
+  "tags": [
+    {
+      "name": "memes",
+      "description": "Everything about your Memes"
+    }
+  ],
+  "schemes": [
+    "https"
+  ],
+  "paths": {
+    "/memes": {
+      "get": {
+        "tags": [
+          "memes"
+        ],
+        "summary": "Get Latest 100 Memes",
+        "description": "Returns a JSON Array containing latest 100 memes",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "JSON Array containing memes",
+            "schema": {
+              "type": "array",
+              "items": {
                 "properties": {
                   "id": {
                     "type": "string"
@@ -134,83 +47,202 @@
                   }
                 }
               }
-            },
-            "404": {
-              "description": "Meme does not exist with this Id"
             }
           }
-        },
-        "patch": {
-          "tags": [
-            "memes"
-          ],
-          "summary": "Updates Caption or URL or Both",
-          "produces": [
-            "application/json"
-          ],
-          "consumes": [
-            "application/json"
-          ],
-          "parameters": [
-            {
-              "name": "id",
-              "in": "path",
-              "required": true,
-              "description": "Meme Id",
-              "type": "string"
-            },
-            {
-              "name": "meme",
-              "in": "body",
-              "description": "Update caption or URL of meme",
-              "schema": {
-                "properties": {
-                  "url": {
-                    "type": "string"
-                  },
-                  "caption": {
-                    "type": "string"
-                  }
+        }
+      },
+      "post": {
+        "tags": [
+          "memes"
+        ],
+        "summary": "Creates a Meme",
+        "description": "Adds a new meme to the list",
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "meme",
+            "in": "body",
+            "description": "Create a meme",
+            "schema": {
+              "$ref": "#/definitions/Meme"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Meme created successully",
+            "schema": {
+              "required": [
+                "id"
+              ],
+              "properties": {
+                "id": {
+                  "type": "string"
                 }
               }
             }
-          ],
-          "responses": {
-            "200": {
-              "description": "Meme updated successfully"
-            },
-            "400": {
-              "description": "Invalid Parameters, Check URL again"
-            },
-            "404": {
-              "description": "Meme with this Id doesnt exists"
-            }
+          },
+          "400": {
+            "description": "Invalid Parameters, Make sure URL is valid"
+          },
+          "409": {
+            "description": "Meme already exists by same user and caption"
           }
         }
       }
     },
-    "definitions": {
-      "Meme": {
-        "type": "object",
-        "required": [
-          "name",
-          "caption",
-          "url"
+    "/memes/{id}": {
+      "get": {
+        "tags": [
+          "memes"
         ],
-        "properties": {
-          "name": {
-            "type": "string",
-            "example": "My Name"
+        "summary": "Finds Meme by Id",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Meme Id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "A meme",
+            "schema": {
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                }
+              }
+            }
           },
-          "caption": {
-            "type": "string",
-            "example": "May May"
+          "404": {
+            "description": "Meme does not exist with this Id"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "memes"
+        ],
+        "summary": "Updates Caption or URL or Both",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Meme Id",
+            "type": "string"
           },
-          "url": {
-            "type": "string",
-            "description": "image url"
+          {
+            "name": "meme",
+            "in": "body",
+            "description": "Update caption or URL of meme",
+            "schema": {
+              "properties": {
+                "url": {
+                  "type": "string"
+                },
+                "caption": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Meme updated successfully"
+          },
+          "204": {
+            "description": "No updation, No change in meme"
+          },
+          "400": {
+            "description": "Invalid Parameters, Check URL again"
+          },
+          "404": {
+            "description": "Meme with this Id doesn't exists"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "memes"
+        ],
+        "summary": "Deletes meme with Id provided permanently, proceed with caution",
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "description": "Meme Id",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Meme Successfully Deleted"
+          },
+          "400": {
+            "description": "unknown error"
+          },
+          "404": {
+            "description": "Meme with this Id doesn't exists",
+            "schema": {
+              "properties": {
+                "error": {
+                  "type": "string"
+                }
+              }
+            }
           }
         }
       }
     }
+  },
+  "definitions": {
+    "Meme": {
+      "type": "object",
+      "required": [
+        "name",
+        "caption",
+        "url"
+      ],
+      "properties": {
+        "name": {
+          "type": "string",
+          "example": "My Name"
+        },
+        "caption": {
+          "type": "string",
+          "example": "May May"
+        },
+        "url": {
+          "type": "string",
+          "description": "image url"
+        }
+      }
+    }
   }
+}
